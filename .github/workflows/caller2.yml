@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  job:
+  azlogin:
     uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
     with:
         azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
