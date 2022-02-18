@@ -1,30 +1,26 @@
-name: '🧳 Upload Artifact'
+name: Reusable workflow
 
-on: workflow_call
+on:
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      firstword:
+        description: "The first output string"
+        value: ${{ jobs.example_job.outputs.output1 }}
+      secondword:
+        description: "The second output string"
+        value: ${{ jobs.example_job.outputs.output2 }}
 
 jobs:
-  upload:
-    name: "Upload Build Artifact"
+  example_job:
+    name: Generate output
     runs-on: ubuntu-latest
-    # env:
-    #   GITHUB_TOKEN: ${{ github.token }}
+    # Map the job outputs to step outputs
+    outputs:
+      output1: ${{ steps.step1.outputs.firstword }}
+      output2: ${{ steps.step2.outputs.secondword }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - run: npm ci
-      - run: npm run build
-
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: public-artifact
-          path: |
-            package.json
-            package-lock.json
-            LICENSE.md
-            dist
-            .eleventy.js
-            11ty
-          if-no-files-found: error
+      - id: step1
+        run: echo "::set-output name=firstword::hello"
+      - id: step2
+        run: echo "::set-output name=secondword::world"

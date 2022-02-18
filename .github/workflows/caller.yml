@@ -1,11 +1,14 @@
-name: Call a reusable workflow
+name: Call a reusable workflow and use its outputs
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
-  call-workflow-passing-data:
+  job1:
     uses: shree1988/reusableworkflow/.github/workflows/reusable@main
-    with:
-      username: mona
-    secrets:
-      token: ${{ secrets.TOKEN }}
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - run: echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
