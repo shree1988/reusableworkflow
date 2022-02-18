@@ -13,8 +13,10 @@ on:
 
 jobs:
   azlogin:
+    runs-on: ubuntu-latest
+    steps:
 #    uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
     # with:
     #   azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
     #   azure-vault-name: 'testingvault101'
-    run: echo $(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
+      - run: echo $(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
