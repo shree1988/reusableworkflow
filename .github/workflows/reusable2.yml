@@ -7,20 +7,9 @@ on:
        required: true
       azure-vault-name:
        required: true
-      kt-github-token:
-       required: false
-    type:
-      required: false
-      default: 'release'
-    mvn-profiles:
-      required: false
-      default: 'artifactory'
-    downstream-repos:
-      required: false
-      default: ''
 jobs:
   az-login:
-    using: 'composite'
+#    using: 'composite'
     steps:
       - name: az-env
         id: az-env
@@ -30,26 +19,26 @@ jobs:
            echo "::set-output name=ArmClientSecret::$(echo '${{ inputs.azure-credentials }}' | jq -r '.clientSecret')"
            echo "::set-output name=ArmTenantId::$(echo '${{ inputs.azure-credentials }}' | jq -r '.tenantId')"
 
-      - name: az-login
-        env:
-          ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
-          ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
-          ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
-        uses: docker://mcr.microsoft.com/azure-cli
-        with:
-          entrypoint: az
-          args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID} >/dev/null
+      # - name: az-login
+      #   env:
+      #     ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
+      #     ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
+      #     ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
+      #   uses: docker://mcr.microsoft.com/azure-cli
+      #   with:
+      #     entrypoint: az
+      #     args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID} >/dev/null
 
-      - name: az-keyvault-secrets
-        id: keyvault
-        env:
-          ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
-          ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
-          ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
-        uses: docker://mcr.microsoft.com/azure-cli
-        with:
-          entrypoint: bash
-          args: |
-            -c "echo \"::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
-            echo \"::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\""
-        shell: bash
+      # - name: az-keyvault-secrets
+      #   id: keyvault
+      #   env:
+      #     ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
+      #     ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
+      #     ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
+      #   uses: docker://mcr.microsoft.com/azure-cli
+      #   with:
+      #     entrypoint: bash
+      #     args: |
+      #       -c "echo \"::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
+      #       echo \"::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\""
+      #   shell: bash
