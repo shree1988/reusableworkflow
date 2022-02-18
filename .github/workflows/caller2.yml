@@ -29,4 +29,4 @@ jobs:
   check-secret:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.AZURE_CREDENTIALS }}
+      - run: echo ${{ secrets.MY_SEC }}
