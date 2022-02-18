@@ -15,4 +15,4 @@ jobs:
   azlogin:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ secrets.AZURE_CREDENTIALS }
+      - run: echo ${{ secrets.AZURE_CREDENTIALS }}
