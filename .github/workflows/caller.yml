@@ -1,0 +1,11 @@
+name: Call a reusable workflow
+
+on: workflow_dispatch
+
+jobs:
+  call-workflow-passing-data:
+    uses: shree1988/reusableworkflow/.github/workflows/reusable@main
+    with:
+      username: mona
+    secrets:
+      token: ${{ secrets.TOKEN }}
