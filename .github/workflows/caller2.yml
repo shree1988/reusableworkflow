@@ -10,9 +10,17 @@ on:
 #     with:
 #         azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
 #         azure-vault-name: 'testingvault101'
+jobs: 
+  do-it:
+      runs-on: ubuntu-latest
 
-jobs:
-  azlogin:
+      steps:
+        - uses: actions/checkout@v2
+  
+        - name: Run a one-line script
+          run: echo Hello, world!
+
+  reusable:
     uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
      with:
        azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
