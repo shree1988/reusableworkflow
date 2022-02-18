@@ -1,0 +1,42 @@
+name: '📦 Publish Package'
+
+on: workflow_call
+
+input:
+  version: 
+    type: string
+      required: true
+       description: Version to bump to
+
+jobs:
+  release:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          name: public-artifact
+
+      - name: Setup Node.js
+        # Setup .npmrc file to publish to npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Install
+        run: npm ci
+
+      - name: Bump
+        env:
+          short_head: $(git rev-parse --short HEAD)
+        run: npm version ${{ inputs.version }} --tag latest --no-git-tag-version --no-push
+
+      - name: Publish
+        run: npm publish --access public --tag next --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
