@@ -11,6 +11,7 @@ jobs:
 #    using: 'composite'
     steps:
       - id: az-env
+        runs-on: ubuntu-latest
         run: |
            echo "::set-output name=ArmClientId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
            echo "::add-mask::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
