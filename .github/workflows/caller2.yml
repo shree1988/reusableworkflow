@@ -28,6 +28,5 @@ jobs:
 
   check-secret:
     runs-on: ubuntu-latest
-    needs: job1
     steps:
       - run: echo ${{ secrets.AZURE_CREDENTIALS }}
