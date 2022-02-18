@@ -18,15 +18,19 @@ jobs:
            echo "::set-output name=ArmClientSecret::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
            echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
         shell: bash
-      - name: az-login
-        env:
-          ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
-          ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
-          ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
-        #uses: docker://mcr.microsoft.com/azure-cli
+      # - name: az-login
+      #   env:
+      #     ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
+      #     ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
+      #     ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
+      #   uses: docker://mcr.microsoft.com/azure-cli
+      #   with:
+      #     entrypoint: az
+      #     args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          entrypoint: az
-          args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: az-keyvault-secrets
         id: keyvault
