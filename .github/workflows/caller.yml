@@ -13,5 +13,5 @@ jobs:
     steps:
       - run: echo ${{ needs.job1.outputs.firstword }} ${{ needs.job1.outputs.secondword }}
 
-  job2:
+  job3:
     uses: shree1988/reusableworkflow/.github/workflows/reusable.yml@main
