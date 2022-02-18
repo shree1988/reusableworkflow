@@ -2,7 +2,7 @@ name: 'Reusable workflow for Continuous Integration'
 description: 'Continuous Integration'
 on:
   workflow_call:
-    inputs:
+    secrets:
       azure-credentials:
        required: true
       azure-vault-name:
@@ -14,10 +14,10 @@ jobs:
       - name: az-env
         id: az-env
         run: |
-           echo "::set-output name=ArmClientId::$(echo '${{ inputs.azure-credentials }}' | jq -r '.clientId')"
-           echo "::add-mask::$(echo '${{ inputs.azure-credentials }}' | jq -r '.clientSecret')"
-           echo "::set-output name=ArmClientSecret::$(echo '${{ inputs.azure-credentials }}' | jq -r '.clientSecret')"
-           echo "::set-output name=ArmTenantId::$(echo '${{ inputs.azure-credentials }}' | jq -r '.tenantId')"
+           echo "::set-output name=ArmClientId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
+           echo "::add-mask::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
+           echo "::set-output name=ArmClientSecret::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
+           echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
 
       # - name: az-login
       #   env:
@@ -39,6 +39,6 @@ jobs:
       #   with:
       #     entrypoint: bash
       #     args: |
-      #       -c "echo \"::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
-      #       echo \"::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\""
+      #       -c "echo \"::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\";\
+      #       echo \"::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\""
       #   shell: bash
