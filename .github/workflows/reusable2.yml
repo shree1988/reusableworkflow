@@ -1,5 +1,4 @@
 name: 'Reusable workflow for Continuous Integration'
-description: 'Continuous Integration'
 on:
   workflow_call:
     secrets:
@@ -11,14 +10,13 @@ jobs:
   az-login:
 #    using: 'composite'
     steps:
-      - name: az-env
-        id: az-env
+      - id: az-env
         run: |
            echo "::set-output name=ArmClientId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
            echo "::add-mask::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
            echo "::set-output name=ArmClientSecret::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
            echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
-
+        shell: bash
       # - name: az-login
       #   env:
       #     ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
