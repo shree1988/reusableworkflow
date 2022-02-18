@@ -14,5 +14,7 @@ on:
 jobs:
   azlogin:
     runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ secrets.AZURE_CREDENTIALS }}
+    uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
+     with:
+         azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
+         azure-vault-name: 'testingvault101'
