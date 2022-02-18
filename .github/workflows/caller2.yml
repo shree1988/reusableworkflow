@@ -4,9 +4,19 @@ on:
   push:
   workflow_dispatch:
 
+# jobs:
+#   azlogin:
+#     uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
+#     with:
+#         azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
+#         azure-vault-name: 'testingvault101'
+
 jobs:
   azlogin:
-    uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
-    with:
+    name: credentials
+    runs-on: ubuntu-latest
+
+    - name: Set up secret file
+      env:
         azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
         azure-vault-name: 'testingvault101'
