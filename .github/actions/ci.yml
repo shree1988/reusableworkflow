@@ -1,0 +1,24 @@
+name: '🧬 Pre Release'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+concurrency:
+  group: ci-pre-release-${{ github.ref }}-1
+  cancel-in-progress: true
+
+jobs:
+  call-lint-and-build:
+    uses: laxman1362/reusableworkflow/.github/workflows/lint.yml@main
+
+  call-unit-tests:
+    needs: call-lint-and-build
+    uses: laxman1362/reusableworkflow/.github/workflows/upload.yml@main
+
+  call-pre-release:
+    needs: call-upload-artifact
+    uses: laxman1362/reusableworkflow/.github/workflows/publish.yml@main
+    with:
+      version: 3.0.0
