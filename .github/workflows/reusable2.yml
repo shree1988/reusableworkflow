@@ -23,7 +23,7 @@ jobs:
           ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
           ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
           ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
-        uses: docker://mcr.microsoft.com/azure-cli
+        #uses: docker://mcr.microsoft.com/azure-cli
         with:
           entrypoint: az
           args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
