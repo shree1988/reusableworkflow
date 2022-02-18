@@ -24,4 +24,6 @@ jobs:
     uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
     with:
       azure-vault-name: 'testingvault101'
-      azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+      azure-clientid: ${{ secrets.AZURE_CLIENTID }}
+      azure-clientsecret: ${{ secrets.AZURE_SECRET }}
+      azure-tenentid: ${{ secrets.AZURE_TENENT }}
