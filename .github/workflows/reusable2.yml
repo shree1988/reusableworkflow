@@ -36,9 +36,9 @@ jobs:
         uses: docker://mcr.microsoft.com/azure-cli
         with:
           azcliversion: 2.30.0
-          inlineScript: |
-            az account show
-            az storage -h
+          run: |
+             "echo \"::set-output name=RtContextUrl::$(az keyvault secret show -n user --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
+              echo \"::set-output name=SonarToken::$(az keyvault secret show -n password --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\""
 
       # - name: az-keyvault-secrets
       #   id: keyvault
