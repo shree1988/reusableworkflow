@@ -1,0 +1,12 @@
+name: 'Continuous Integration'
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  job:
+    uses: shree1988/reusableworkflow/.github/workflows/reusable2.yml@main
+    with:
+        azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
+        azure-vault-name: 'testingvault101'
