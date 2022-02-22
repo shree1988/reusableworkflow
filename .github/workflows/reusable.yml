@@ -20,10 +20,9 @@ jobs:
       output1: ${{ steps.step1.outputs.firstword }}
       output2: ${{ steps.step2.outputs.secondword }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
         with:
           name: https://github.com/shree1988/reusableworkflow
-          ref: main
       - id: step1
         run: echo "::set-output name=firstword::hello"
       - id: step2
