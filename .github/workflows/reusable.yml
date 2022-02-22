@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          name: shree1988/reusableworkflow
+          name: https://github.com/shree1988/reusableworkflow
           ref: main
       - id: step1
         run: echo "::set-output name=firstword::hello"
