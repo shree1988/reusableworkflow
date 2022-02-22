@@ -12,7 +12,7 @@ on:
         value: ${{ jobs.example_job.outputs.output2 }}
 
 jobs:
-  example_job1:
+  example_job:
     name: Generate output
     runs-on: ubuntu-latest
     # Map the job outputs to step outputs
