@@ -19,10 +19,6 @@ jobs:
            echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
         shell: bash
       - name: az-login
-        env:
-          ARM_CLIENT_ID: ${{ steps.az-env.outputs.ArmClientId }}
-          ARM_CLIENT_SECRET: ${{ steps.az-env.outputs.ArmClientSecret }}
-          ARM_TENANT_ID: ${{ steps.az-env.outputs.ArmTenantId }}
         uses: docker://mcr.microsoft.com/azure-cli
         with:
           entrypoint: az
@@ -38,8 +34,8 @@ jobs:
         with:
           azcliversion: 2.30.0
           run: |
-             "echo \"::set-output name=RtContextUrl::$(az keyvault secret show -n user --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
-              echo \"::set-output name=SonarToken::$(az keyvault secret show -n password --vault-name ${{ inputs.azure-vault-name }} -o tsv --query value)\";\
+             "echo \"$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\";\
+              echo \":$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\";\
               echo "Hi""
 
       # - name: az-keyvault-secrets
