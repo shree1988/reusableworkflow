@@ -23,7 +23,7 @@ jobs:
         with:
           entrypoint: az
           #args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
-          args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }}
+          args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }} > /dev/null
       # - name: Azure Login
       #   uses: azure/login@v1
       #   with:
@@ -34,9 +34,7 @@ jobs:
         with:
           azcliversion: 2.30.0
           run: |
-             "echo \"$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\";\
-              echo \":$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)\";\
-              echo "Hi""
+             echo $ArmClientID
 
       # - name: az-keyvault-secrets
       #   id: keyvault
