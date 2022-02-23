@@ -23,7 +23,7 @@ jobs:
         with:
           entrypoint: az
           #args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
-          args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }} > /dev/null
+          args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }}
       # - name: Azure Login
       #   uses: azure/login@v1
       #   with:
