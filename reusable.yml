@@ -3,28 +3,25 @@ name: Reusable workflow
 on:
   workflow_call:
     # Map the workflow outputs to job outputs
-    outputs:
-      firstword:
-        description: "The first output string"
-        value: ${{ jobs.example_job.outputs.output1 }}
-      secondword:
-        description: "The second output string"
-        value: ${{ jobs.example_job.outputs.output2 }}
+    inputs:
+      versions:
+        required: false
+        type: string
 
 jobs:
   example_job:
     name: Generate output
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{fromJson(inputs.versions)}}
     # Map the job outputs to step outputs
-    outputs:
-      output1: ${{ steps.step1.outputs.firstword }}
-      output2: ${{ steps.step2.outputs.secondword }}
     steps:
       - uses: actions/checkout@v2
         with:
           repository: shree1988/reusableworkflow
           ref: main
-      - id: step1
-        run: echo "::set-output name=firstword::hello"
       - id: step2
         run: ls -ltr
+      - id: step3
+        run: echo ${{ matrix.node-version }}
