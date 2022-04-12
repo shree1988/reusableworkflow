@@ -38,8 +38,9 @@ jobs:
           fetch-depth: 0
       - id: sed
         run: |
-          sed -i -e 's/##user##/${{ steps.keyvault.outputs.User }}' \
-          -e 's/##pass##/${{ steps.keyvault.outputs.Password }}' \
+          ls -ltr
+          sed -i -e 's/##user##/${{ steps.keyvault.outputs.User }}/g' \
+          -e 's/##pass##/${{ steps.keyvault.outputs.Password }}/g' \
           'test.txt'
           cat 'test.txt'
       # - name: az-keyvault-secrets
