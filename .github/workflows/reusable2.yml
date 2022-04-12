@@ -44,7 +44,6 @@ jobs:
           fetch-depth: 0
       - id: sed
         run: |
-          echo "::add-mask::${{ steps.keyvault.outputs.Password }}"
           ls -ltr
           cat 'test.txt'
           sed -i -e 's/##user##/${{ steps.keyvault.outputs.User }}/g' \
