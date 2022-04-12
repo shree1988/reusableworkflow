@@ -35,12 +35,12 @@ jobs:
           #echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
           echo "::set-output name=User::Srikant"
           echo "::set-output name=Password::Srikant@2022"
-          echo "::add-mask::${{ steps.keyvault.outputs.Password }}"
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - id: sed
         run: |
+          echo "::add-mask::${{ steps.keyvault.outputs.Password }}"
           ls -ltr
           cat 'test.txt'
           sed -i -e 's/##user##/${{ steps.keyvault.outputs.User }}/g' \
