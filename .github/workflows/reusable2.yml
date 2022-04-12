@@ -11,25 +11,25 @@ jobs:
 #    using: 'composite'
     runs-on: ubuntu-latest
     steps:
-      - id: az-env
-        run: |
-           echo "::set-output name=ArmClientId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
-           echo "::add-mask::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
-           echo "::set-output name=ArmClientSecret::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
-           echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
-        shell: bash
-      - name: az-login
-        uses: docker://mcr.microsoft.com/azure-cli
-        with:
-          entrypoint: az
+      #- id: az-env
+      #  run: |
+      #     echo "::set-output name=ArmClientId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientId')"
+      #     echo "::add-mask::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
+      #     echo "::set-output name=ArmClientSecret::$(echo '${{ secrets.azure-credentials }}' | jq -r '.clientSecret')"
+      #     echo "::set-output name=ArmTenantId::$(echo '${{ secrets.azure-credentials }}' | jq -r '.tenantId')"
+       # shell: bash
+      #- name: az-login
+      #  uses: docker://mcr.microsoft.com/azure-cli
+      #  with:
+      #    entrypoint: az
           #args: login --service-principal -u ${ARM_CLIENT_ID} -p ${ARM_CLIENT_SECRET} -t ${ARM_TENANT_ID}
-          args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }}
+      #    args: login --service-principal -u ${{ steps.az-env.outputs.ArmClientId }} -p ${{ steps.az-env.outputs.ArmClientSecret }} -t ${{ steps.az-env.outputs.ArmTenantId }}
       # - name: Azure Login
       #   uses: azure/login@v1
       #   with:
       #     creds: ${{ secrets.azure-credentials }}
 
-      - name: keyvault
+      - id: keyvault
         run: |
           #echo "::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
           #echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
