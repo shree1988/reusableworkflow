@@ -1,2 +1,2 @@
-Username=Srikant
-DB_Pass=Srikant@2022
+Username=##user##
+DB_Pass=##pass##
