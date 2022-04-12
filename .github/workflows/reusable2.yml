@@ -41,6 +41,7 @@ jobs:
       - id: sed
         run: |
           ls -ltr
+          cat 'test.txt'
           sed -i -e 's/##user##/${{ steps.keyvault.outputs.User }}/g' \
           -e 's/##pass##/${{ steps.keyvault.outputs.Password }}/g' \
           'test.txt'
