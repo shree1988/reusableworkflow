@@ -1,2 +1,2 @@
-Username=##user##
-DB_Pass=##pass##
+Username=abcd@github.com
+DB_Pass=github@2022
