@@ -6,6 +6,10 @@ on:
        required: true
       azure-vault-name:
        required: true
+      USERNAME:
+       required: true
+      PASSWORD:
+       required: true
 jobs:
   az-login:
 #    using: 'composite'
@@ -33,8 +37,8 @@ jobs:
         run: |
           #echo "::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
           #echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
-          echo "::set-output name=User::Srikant"
-          echo "::set-output name=Password::Srikant@2022"
+          echo "::set-output name=User::$(echo '${{ secrets.USERNAME }}')"
+          echo "::set-output name=Password::$(echo '${{ secrets.PASSWORD }}')"
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0

@@ -15,3 +15,5 @@ jobs:
     secrets:
       azure-credentials: '${{ secrets.AZURE_CREDENTIALS }}'
       azure-vault-name: 'testingvault101'
+      USERNAME: '${{ secrets.USERNAME }}'
+      PASSWORD: '${{ secrets.PASSWORD }}'
