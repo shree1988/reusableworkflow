@@ -1,7 +1,6 @@
 name: 'Caller2'
 
 on:
-  push:
   workflow_dispatch:
 
 # jobs:

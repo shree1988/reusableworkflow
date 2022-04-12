@@ -34,7 +34,8 @@ jobs:
         with:
           azcliversion: 2.30.0
           run: |
-             echo $ArmClientID
+             echo "::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
+             echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
 
       # - name: az-keyvault-secrets
       #   id: keyvault
