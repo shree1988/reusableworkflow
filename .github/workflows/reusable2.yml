@@ -31,8 +31,10 @@ jobs:
 
       - name: keyvault
         run: |
-          echo "::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
-          echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
+          #echo "::set-output name=User::$(az keyvault secret show -n user --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
+          #echo "::set-output name=Password::$(az keyvault secret show -n password --vault-name ${{ secrets.azure-vault-name }} -o tsv --query value)"
+          echo "::set-output name=User::Srikant"
+          echo "::set-output name=Password::Srikant@2022"
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
